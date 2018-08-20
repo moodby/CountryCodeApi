@@ -10,8 +10,8 @@ ext {
 
     libraryDescription = 'A wrapper for BaseMVPR on Android'
 
-    siteUrl = 'https://github.com/Kolyall/BaseMVPR'
-    gitUrl = 'https://github.com/Kolyall/BaseMVPR.git'
+    siteUrl = 'https://github.com/Kolyall/CountryCodeApi'
+    gitUrl = 'https://github.com/Kolyall/CountryCodeApi.git'
 
     developerId = 'nickunuchek'
     developerName = 'Nick Unuchek'
