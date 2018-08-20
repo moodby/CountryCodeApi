@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/appVersion.gradle'
 
-
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -14,6 +13,7 @@ android {
         versionName appVersionName
 
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
@@ -24,10 +24,12 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     lintOptions {
         quiet true
         abortOnError false
@@ -37,6 +39,7 @@ android {
         disable 'IconDensities'            //For testing purpose. This is safe to remove.
         disable 'IconMissingDensityFolder' //For testing purpose. This is safe to remove.
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -78,7 +81,7 @@ buildscript {
     }
 }
 
-apply from: 'libraryInfo.gradle'
+apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/libraryInfo.gradle'
 apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/artifactsSetup.gradle'
 apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/installSetup.gradle'
 apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/bintraySetup.gradle'
