@@ -1,0 +1,31 @@
+apply from: 'dependencies.gradle'
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        //region google()
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        //endregion
+    }
+}
+
+allprojects {
+
+    repositories {
+        maven {
+            def mavenCustom = uri("${project.rootDir}/modules/maven/repository")
+            url mavenCustom
+        }
+        google()
+        jcenter()
+        mavenCentral()
+
+        maven { url "https://dl.bintray.com/nickunuchek/maven" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
