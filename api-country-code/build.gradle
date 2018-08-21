@@ -53,8 +53,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "com.android.support:appcompat-v7:${supportLibVer}"
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:${supportLibVer}"
 
     implementation  "io.reactivex:rxjava:${rxJavaVersion}"
     implementation ("io.reactivex:rxandroid:${rxAndroidVersion}"){

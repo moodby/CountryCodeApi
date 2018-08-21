@@ -15,7 +15,7 @@ allprojects {
 
     repositories {
         maven {
-            def mavenCustom = uri("${project.rootDir}/modules/maven/repository")
+            def mavenCustom = uri("d:/Android/workspace/gramophone-libraries-android/maven/repository")
             url mavenCustom
         }
         google()
