@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -45,10 +46,12 @@ public class CountryRepository {
         return getResponseFromRes(getLanguage().getRawJsonId(), (Type) type);
     }
 
-    public Observable<Country> getCountryByRegionCodeObservable(String regionCode){
+    public Maybe<Country> getCountryByRegionCodeObservable(String regionCode){
         return getCountryListObservable()
                 .flatMap(Observable::fromIterable)
-                .filter(country -> country.getRegionCode().equals(regionCode.toLowerCase()));
+                .filter(country -> country.getRegionCode().equals(regionCode.toLowerCase()))
+                .firstElement()
+                ;
     }
 
     private Language getLanguage() {
