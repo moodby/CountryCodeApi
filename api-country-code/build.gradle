@@ -52,21 +52,20 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:${supportLibVer}"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
 
-    implementation  "io.reactivex:rxjava:${rxJavaVersion}"
-    implementation ("io.reactivex:rxandroid:${rxAndroidVersion}"){
-        exclude group: 'io.reactivex', module: 'rxjava'
+    implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    implementation("io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}") {
+        exclude group: 'io.reactivex.rxjava2', module: 'rxjava'
     }
-    implementation ("com.github.davidmoten:rxjava-extras:${rxExtrasVersion}"){
-        exclude group: 'io.reactivex', module: 'rxjava'
-    }
+//    implementation ("com.github.davidmoten:rxjava-extras:${rxExtrasVersion}"){
+//        exclude group: 'io.reactivex', module: 'rxjava'
+//    }
 
     implementation "com.google.code.gson:gson:${gsonVersion}"
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
+// Place it at the end of the file
 // Place it at the end of the file
 buildscript {
     repositories {
@@ -74,14 +73,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     }
 }
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/libraryInfo.gradle'
+    apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/artifactsSetup.gradle'
+    apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/installSetup.gradle'
+    apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/bintraySetup.gradle'
+}
 
-apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/libraryInfo.gradle'
-apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/artifactsSetup.gradle'
-apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/installSetup.gradle'
-apply from: 'https://raw.githubusercontent.com/Kolyall/MavenPublish/master/bintraySetup.gradle'
-apply from: 'mavenCustom.gradle'
 

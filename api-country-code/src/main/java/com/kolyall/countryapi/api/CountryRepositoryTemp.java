@@ -1,8 +1,6 @@
 package com.kolyall.countryapi.api;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.RawRes;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -26,11 +24,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-import rx.Observable;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import androidx.annotation.NonNull;
+import androidx.annotation.RawRes;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.content.ContentValues.TAG;
 
@@ -83,23 +81,17 @@ public class CountryRepositoryTemp {
     @NonNull
     protected <T> Observable<T> getResponseFromRes(@RawRes int rawId, final Type type) {
         return readStringFromResObservable(rawId)
-                .map(new Func1<String, T>() {
-                    @Override
-                    public T call(String jsonObject) {
-                        Log.d(TAG, "call: getResponseFromRes: map: "+Thread.currentThread().getName());
-                        return jsonToObj(jsonObject, type);
-                    }
+                .map(jsonObject -> {
+                    Log.d(TAG, "call: getResponseFromRes: map: "+Thread.currentThread().getName());
+                    return jsonToObj(jsonObject, type);
                 });
     }
 
     @NonNull
     private Observable<String> readStringFromResObservable(@RawRes final int rawId) {
-        return Observable.fromCallable(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Log.d(TAG, "call: readStringFromResObservable fromCallable: "+Thread.currentThread().getName());
-                return readJsonFromRes(rawId);
-            }
+        return Observable.fromCallable(() -> {
+            Log.d(TAG, "call: readStringFromResObservable fromCallable: "+Thread.currentThread().getName());
+            return readJsonFromRes(rawId);
         }).subscribeOn(Schedulers.io());
 //        Observable.unsafeCreate(new Observable.OnSubscribe<String>() {
 //            @Override

@@ -1,17 +1,12 @@
 package com.kolyall.countryapi.objects;
 
-import android.support.annotation.RawRes;
-
 import com.kolyall.countryapi.R;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import androidx.annotation.RawRes;
 
 /**
  * Created by Nick Unuchek on 11.09.2017.
  */
-@AllArgsConstructor
-@Getter
 public enum Language {
     ARABIC("ar", R.raw.json_english),
     BENGALI("bn", R.raw.json_english),
@@ -34,4 +29,16 @@ public enum Language {
 
     String code;
     @RawRes int rawJsonId;
-}
+
+    Language(String code, int rawJsonId) {
+        this.code = code;
+        this.rawJsonId = rawJsonId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public int getRawJsonId() {
+        return rawJsonId;
+    }}

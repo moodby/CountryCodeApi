@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         //region google()
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         //endregion
     }
 }
@@ -14,14 +14,10 @@ buildscript {
 allprojects {
 
     repositories {
-        maven {
-            def mavenCustom = uri("d:/Android/workspace/gramophone-libraries-android/maven/repository")
-            url mavenCustom
-        }
+        mavenLocal()
         google()
         jcenter()
         mavenCentral()
-
         maven { url "https://dl.bintray.com/nickunuchek/maven" }
     }
 }

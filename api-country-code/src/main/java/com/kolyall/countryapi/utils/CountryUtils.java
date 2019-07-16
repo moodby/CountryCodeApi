@@ -1,12 +1,12 @@
 package com.kolyall.countryapi.utils;
 
-import android.support.annotation.DrawableRes;
-
 import com.kolyall.countryapi.R;
 import com.kolyall.countryapi.objects.Country;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
 
 /**
  * Created by Nick Unuchek on 11.09.2017.

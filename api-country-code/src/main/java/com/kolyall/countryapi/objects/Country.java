@@ -1,36 +1,68 @@
 package com.kolyall.countryapi.objects;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.annotations.Expose;
 import com.kolyall.countryapi.utils.CountryUtils;
 
 import java.text.Collator;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import androidx.annotation.NonNull;
 
 
 /**
  * Created by hbb20 on 11/1/16.
  */
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Getter @Setter
 public class Country implements Comparable<Country> {
     @Expose String regionCode;
     @Expose String countryCode;
     @Expose String name;
     @Expose String englishName;
 
-    @Builder
-    public Country(String nameCode, String phoneCode, String name) {
-        this(nameCode,phoneCode,name,name);
+    public Country() {
     }
+
+    public Country(String nameCode, String phoneCode, String name) {
+        this(nameCode, phoneCode, name, name);
+    }
+
+    public Country(String regionCode, String countryCode, String name, String englishName) {
+        this.regionCode = regionCode;
+        this.countryCode = countryCode;
+        this.name = name;
+        this.englishName = englishName;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEnglishName() {
+        return englishName;
+    }
+
+    public void setEnglishName(String englishName) {
+        this.englishName = englishName;
+    }
+
 
     public int getFlagDrawableResId() {
         return CountryUtils.getFlagDrawableResId(this);
