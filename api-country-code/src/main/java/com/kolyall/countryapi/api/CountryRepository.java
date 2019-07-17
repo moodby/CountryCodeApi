@@ -41,14 +41,14 @@ public class CountryRepository {
         mGson = gson;
     }
 
-    public Observable<List<Country>> getCountryListObservable(){
+    public Maybe<List<Country>> getCountryListObservable(){
         Type type = new TypeToken<List<Country>>(){}.getType();
         return getResponseFromRes(getLanguage().getRawJsonId(), (Type) type);
     }
 
     public Maybe<Country> getCountryByRegionCodeObservable(String regionCode){
         return getCountryListObservable()
-                .flatMap(Observable::fromIterable)
+                .flatMapObservable(Observable::fromIterable)
                 .filter(country -> country.getRegionCode().equals(regionCode.toLowerCase()))
                 .firstElement()
                 ;
@@ -65,7 +65,7 @@ public class CountryRepository {
     }
 
     @NonNull
-    protected <T> Observable<T> getResponseFromRes(@RawRes int rawId, final Type type) {
+    protected <T> Maybe<T> getResponseFromRes(@RawRes int rawId, final Type type) {
         return readStringFromResObservable(rawId)
                 .map(jsonObject -> {
                     Log.d(TAG, "call: getResponseFromRes: map: "+Thread.currentThread().getName());
@@ -74,8 +74,8 @@ public class CountryRepository {
     }
 
     @NonNull
-    private Observable<String> readStringFromResObservable(@RawRes final int rawId) {
-        return Observable.fromCallable(() -> {
+    private Maybe<String> readStringFromResObservable(@RawRes final int rawId) {
+        return Maybe.fromCallable(() -> {
             Log.d(TAG, "call: readStringFromResObservable fromCallable: "+Thread.currentThread().getName());
             return readJsonFromRes(rawId);
         }).subscribeOn(Schedulers.io());
