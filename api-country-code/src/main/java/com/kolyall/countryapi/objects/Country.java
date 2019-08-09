@@ -1,6 +1,7 @@
 package com.kolyall.countryapi.objects;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.kolyall.countryapi.utils.CountryUtils;
 
 import java.text.Collator;
@@ -12,9 +13,16 @@ import androidx.annotation.NonNull;
  * Created by hbb20 on 11/1/16.
  */
 public class Country implements Comparable<Country> {
+    @SerializedName("region_code")
     @Expose String regionCode;
+
+    @SerializedName("country_code")
     @Expose String countryCode;
+
+    @SerializedName("name")
     @Expose String name;
+
+    @SerializedName("english_name")
     @Expose String englishName;
 
     public Country() {
