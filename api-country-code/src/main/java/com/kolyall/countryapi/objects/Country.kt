@@ -1,91 +1,44 @@
-package com.kolyall.countryapi.objects;
+package com.kolyall.countryapi.objects
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.kolyall.countryapi.utils.CountryUtils;
-
-import java.text.Collator;
-
-import androidx.annotation.NonNull;
-
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import com.kolyall.countryapi.utils.CountryUtils
+import com.kolyall.countryapi.utils.flagDrawableResId
+import java.text.Collator
 
 /**
  * Created by hbb20 on 11/1/16.
  */
-public class Country implements Comparable<Country> {
+class Country(
     @SerializedName("region_code")
-    @Expose String regionCode;
+    @Expose
+    var regionCode: String = "",
 
     @SerializedName("country_code")
-    @Expose String countryCode;
-
-    @SerializedName("name")
-    @Expose String name;
+    @Expose
+    var countryCode: String = "",
 
     @SerializedName("english_name")
-    @Expose String englishName;
+    @Expose
+    var englishName: String = ""
+) : Comparable<Country> {
 
-    public Country() {
-    }
-
-    public Country(String nameCode, String phoneCode, String name) {
-        this(nameCode, phoneCode, name, name);
-    }
-
-    public Country(String regionCode, String countryCode, String name, String englishName) {
-        this.regionCode = regionCode;
-        this.countryCode = countryCode;
-        this.name = name;
-        this.englishName = englishName;
-    }
-
-    public String getRegionCode() {
-        return regionCode;
-    }
-
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEnglishName() {
-        return englishName;
-    }
-
-    public void setEnglishName(String englishName) {
-        this.englishName = englishName;
-    }
-
-
-    public int getFlagDrawableResId() {
-        return CountryUtils.getFlagDrawableResId(this);
-    }
+    @SerializedName("name")
+    @Expose
+    lateinit var name: String
 
     /**
      * If country have query word in name or name code or phone code, this will return true.
      */
-    public boolean isEligibleForQuery(String query) {
-        query = query.toLowerCase();
-        return getName().toLowerCase().contains(query) || getRegionCode().toLowerCase().contains(query) || getCountryCode().toLowerCase().contains(query) || getEnglishName().toLowerCase().contains(query);
+    fun isEligibleForQuery(text: String): Boolean {
+        val query = text.toLowerCase()
+        return name.toLowerCase().contains(query)
+            || regionCode.toLowerCase().contains(query)
+            || countryCode.toLowerCase().contains(query)
+            || englishName.toLowerCase().contains(query)
     }
 
-    @Override
-    public int compareTo(@NonNull Country other) {
-        return Collator.getInstance().compare(this.getName(), other.getName());
+    override fun compareTo(other: Country): Int {
+        return Collator.getInstance().compare(name, other.name)
     }
 }

@@ -1,33 +1,32 @@
 ext {
     //Android
-    androidBuildToolsVersion = "28.0.3"
+    androidBuildToolsVersion = "29.0.2"
     androidMinSdkVersion = 19
-    androidTargetSdkVersion = 23
+    androidTargetSdkVersion = 29
     androidCompileSdkVersion = 28
-    androidRenderscriptTargetApi = 23
+    androidRenderscriptTargetApi = 26
 
     //Libraries
-    daggerVersion = '2.15'
-    butterKnifeVersion = '8.8.1'
+    daggerVersion = '2.28.3'
+    butterKnifeVersion = '10.2.3'
     supportLibVer = '28.0.0-alpha3'
     googleLibVer = '12.0.1'
 //    wearableLibVer = '2.3.0'
 
-    rxJavaVersion = '2.2.9'
+    rxJavaVersion = '2.2.19'
     rxAndroidVersion = '2.1.1'
-    rxExtrasVersion = '0.8.0.6'
+    rxExtrasVersion = '0.1.38'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
-    retrofitVersion = '2.1.0'
+    retrofitVersion = '2.9.0'
     phraseVersion = '1.1.0'
-    okHttpVersion = '3.9.1'
+    okHttpVersion = '4.8.1'
     androidAnnotationsVersion = supportLibVer
     //Views
     //Data
-    lombokVersion = '1.16.20'
-    parcelerVersion = '1.1.9'
+    parcelerVersion = '1.1.13'
     fragmentargsVersion = '4.0.0-RC1'
-    activitystarterVersion = '1.11-beta'
+    activitystarterVersion = '1.12-beta-2'
     picassoVersion = '2.5.2'
-    gsonVersion = '2.8.1'
+    gsonVersion = '2.8.6'
 }

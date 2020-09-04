@@ -2,15 +2,16 @@ package com.kolyall.countryapi.api;
 
 import android.content.Context;
 import android.util.Log;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.RawRes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kolyall.countryapi.objects.Country;
 import com.kolyall.countryapi.objects.Language;
 import com.kolyall.countryapi.utils.CountryUtils;
-
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
@@ -24,11 +25,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RawRes;
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 
 import static android.content.ContentValues.TAG;
 
@@ -147,33 +143,32 @@ public class CountryRepositoryTemp {
                     case XmlPullParser.START_TAG:
                         break;
                     case XmlPullParser.END_TAG:
-                        if (name.equals("country")) {
-                            Country country = new Country();
-                            country.setRegionCode(xmlPullParser.getAttributeValue(null, "region_code").toUpperCase());
-                            country.setCountryCode(xmlPullParser.getAttributeValue(null, "country_code"));
-                            country.setEnglishName(xmlPullParser.getAttributeValue(null, "english_name"));
-                            country.setName(xmlPullParser.getAttributeValue(null, "name"));
-                            countries.add(country);
-                        } else if (name.equals("ccp_dialog_title")) {
-                            tempDialogTitle = xmlPullParser.getAttributeValue(null, "translation");
-                        } else if (name.equals("ccp_dialog_search_hint_message")) {
-                            tempSeachHint = xmlPullParser.getAttributeValue(null, "translation");
-                        } else if (name.equals("ccp_dialog_no_result_ack_message")) {
-                            tempNoResultAck = xmlPullParser.getAttributeValue(null, "translation");
+                        switch (name) {
+                            case "country":
+                                Country country = new Country();
+                                country.setRegionCode(xmlPullParser.getAttributeValue(null, "region_code").toUpperCase());
+                                country.setCountryCode(xmlPullParser.getAttributeValue(null, "country_code"));
+                                country.setEnglishName(xmlPullParser.getAttributeValue(null, "english_name"));
+                                country.setName(xmlPullParser.getAttributeValue(null, "name"));
+                                countries.add(country);
+                                break;
+                            case "ccp_dialog_title":
+                                tempDialogTitle = xmlPullParser.getAttributeValue(null, "translation");
+                                break;
+                            case "ccp_dialog_search_hint_message":
+                                tempSeachHint = xmlPullParser.getAttributeValue(null, "translation");
+                                break;
+                            case "ccp_dialog_no_result_ack_message":
+                                tempNoResultAck = xmlPullParser.getAttributeValue(null, "translation");
+                                break;
                         }
                         break;
                 }
                 event = xmlPullParser.next();
             }
             loadedLibraryMasterListLanguage = language;
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
         }
 
         //if anything went wrong, countries will be loaded for english language
