@@ -9,7 +9,7 @@ import java.text.Collator
 /**
  * Created by hbb20 on 11/1/16.
  */
-class Country(
+data class Country(
     @SerializedName("region_code")
     @Expose
     var regionCode: String = "",

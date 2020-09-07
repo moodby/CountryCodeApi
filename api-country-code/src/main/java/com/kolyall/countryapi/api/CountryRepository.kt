@@ -9,7 +9,6 @@ import com.google.gson.reflect.TypeToken
 import com.kolyall.countryapi.objects.Country
 import com.kolyall.countryapi.objects.Language
 import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import java.io.BufferedReader
 import java.io.IOException
@@ -25,29 +24,26 @@ import java.util.Locale
  */
 class CountryRepository(private var context: Context, private var gson: Gson) {
 
-    val countryListObservable: Maybe<List<Country>>
-        get() {
-            val type = object : TypeToken<List<Country>>() {}.type
-            return getResponseFromRes(language.rawJsonId, type as Type)
-        }
-
-    fun getCountryByRegionCodeObservable(regionCode: String): Maybe<Country> {
-        return countryListObservable
-            .flatMapObservable { list -> Observable.fromIterable(list) }
-            .filter { country -> country.regionCode == regionCode.toLowerCase() }
-            .firstElement()
+    fun getCountryList(localeLanguageCode: String = Locale.getDefault().language): Maybe<List<Country>> {
+        val type = object : TypeToken<List<Country>>() {}.type
+        return getResponseFromRes(getLanguage(localeLanguageCode).rawJsonId, type as Type)
     }
 
-    private val language: Language
-        private get() {
-            val localeLanguage = Locale.getDefault().language
-            for (language in Language.values()) {
-                if (language.code == localeLanguage) {
-                    return language
-                }
+    fun getCountryByRegionCode(regionCode: String, localeLanguageCode: String = Locale.getDefault().language): Maybe<Country> {
+        return getCountryList(localeLanguageCode)
+            .map { list ->
+                list.firstOrNull { country -> country.regionCode == regionCode.toLowerCase() }
             }
-            return Language.ENGLISH
+    }
+
+    private fun getLanguage(localeLanguageCode: String): Language {
+        for (language in Language.values()) {
+            if (language.code == localeLanguageCode) {
+                return language
+            }
         }
+        return Language.ENGLISH
+    }
 
     protected fun <T> getResponseFromRes(@RawRes rawId: Int, type: Type): Maybe<T> {
         return readStringFromResObservable(rawId)
